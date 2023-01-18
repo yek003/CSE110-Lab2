@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             // Otherwise, append the next digit.
             displayStr += num;
         }
-        updateDisplay();
+        updateDisplay(displayStr);
     }
 
     private void onDotButtonClicked(View view) {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         // If we already have a decimal, don't do anything.
         if (displayStr.contains(".")) return;
         displayStr += ".";
-        updateDisplay();
+        updateDisplay(displayStr);
     }
 
     private void onOperationButtonClicked(View view) {
@@ -136,33 +136,17 @@ public class MainActivity extends AppCompatActivity {
         // Clear the pending operation and update the display.
         pendingOp = Optional.empty();
         displayStr = String.valueOf(result);
-        trimDisplayStr();
-        updateDisplay();
+        Utilities.trimDisplayStr(displayStr);
+        updateDisplay(displayStr);
     }
 
-    private void updateDisplay() {
+    private void updateDisplay(String displayStr) {
         display.setText(displayStr);
     }
 
     private void clearDisplay() {
         displayStr = "0";
-        updateDisplay();
+        updateDisplay(displayStr);
     }
 
-    private void trimDisplayStr() {
-        // If the string does not contain a decimal point, don't do anything.
-        if (!displayStr.contains(".")) {
-            return;
-        }
-        // Trim off any extra "0s" at the end.
-        var cleanedStr = displayStr;
-        while (cleanedStr.endsWith("0")) {
-            cleanedStr = cleanedStr.substring(0, cleanedStr.length() - 1);
-        }
-        // And now if it ends with a ".", trim that too.
-        if (cleanedStr.endsWith(".")) {
-            cleanedStr = cleanedStr.substring(0, cleanedStr.length() - 1);
-        }
-        displayStr = cleanedStr;
-    }
 }
