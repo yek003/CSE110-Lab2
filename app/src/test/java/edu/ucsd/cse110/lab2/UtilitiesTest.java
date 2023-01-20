@@ -7,7 +7,7 @@ import org.junit.Test;
 public class UtilitiesTest {
     @Test
     public void test_trimDisplayStr() {
-
-        assertEquals(3, 1 + 2);
+        assertEquals("1.234", Utilities.trimDisplayStr("1.2340"));
+        assertEquals("13", Utilities.trimDisplayStr(("13.0")));
     }
 }
